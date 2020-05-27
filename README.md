@@ -1,4 +1,4 @@
-# AspNetCore.Security.Jwt
+# ASP.NET JWT Authentication, and Single Sign-on library for .Net Core 3.1 (AspNetCore.Security.Jwt)
 ## Asp Net Core Jwt Bearer Token Security package.
 
 [**Nuget package**](https://www.nuget.org/packages/AspNetCore.Security.Jwt)
