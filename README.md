@@ -103,11 +103,15 @@ The Authenticator is automatically wired up for dependency injection (Scoped).
 			.
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "XXX API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "XXX API", Version = "v1" });
+                // Enable XML Comments
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddSecurity<Authenticator>(this.Configuration, true);
-            services.AddMvc().AddSecurity();
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddSecurity();
         }
 ```
 
