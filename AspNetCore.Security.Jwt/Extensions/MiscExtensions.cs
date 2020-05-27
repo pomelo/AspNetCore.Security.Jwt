@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+//using Microsoft.AspNetCore.Http.Internal;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -19,7 +19,7 @@ namespace AspNetCore.Security.Jwt
         internal static bool IsValid<TModel>(this HttpRequest httpRequest, Func<TModel, bool> condition)
         {
             // Allows using several time the stream in ASP.Net Core
-            httpRequest.EnableRewind();
+            httpRequest.EnableBuffering();
 
             using (MemoryStream m = new MemoryStream())
             {

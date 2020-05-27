@@ -7,6 +7,9 @@ using Swashbuckle.AspNetCore.Swagger;
 namespace AspNetCore.Security.Jwt.UnitTests
 {
     using AspNetCore.Security.Jwt;
+    using System;
+    using System.IO;
+    using System.Reflection;
 
     public class Startup
     {
@@ -25,6 +28,10 @@ namespace AspNetCore.Security.Jwt.UnitTests
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "XXX API", Version = "v1" });
+                // Enable XML comments for Swagger, according to https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             var securitySettings = new SecuritySettings();
@@ -63,7 +70,7 @@ namespace AspNetCore.Security.Jwt.UnitTests
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
             app.UseCors(builder =>
